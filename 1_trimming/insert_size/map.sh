@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --partition normal
+#SBATCH --account=rrg-shaferab
 #SBATCH --mem-per-cpu 1G
 if [ $1 ]
 then
