@@ -6,14 +6,14 @@
 source ../variable.py
 ##################################################
 SP=$sp
-PATH=$path
+Path=$path
 SP_REF=$refGenome
 ## create directories:
 mkdir -p 1.map/map_seq
 ## 1.map mapping: ####################################################################################################################################################
 ## Reconstruction of mapping.sh file by running "map.sh path/ref_genome" (no .fa):
 ##
-bash map.sh $PATH/$SP/ref_fasta/$SP_REF
+bash map.sh $Path/$SP/ref_fasta/$SP_REF
 ##
 ## Then you run a bash file to split the single map and submit them in the same time:
 bash submit_split.sh
