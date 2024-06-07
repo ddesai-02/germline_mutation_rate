@@ -1,6 +1,6 @@
 ## This script creates all the directories needed for the pipeline.
-SPECIES=Macaca_mulatta
-PATH=your_path
+SPECIES=Odocoileus_virginianus
+PATH=/home/projects/rrg-shaferab/devan
 
 ############################################################################################################
 mkdir $PATH/$SPECIES/
