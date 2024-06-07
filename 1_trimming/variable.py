@@ -1,4 +1,4 @@
 # Enter species name and reference genome name without the ".fa" extension:
-sp="Macaca_mulatta"
-refGenome="rheMac8"
-path="yourpath"
+sp="Odocoileus_virginianus"
+refGenome="Odocoileus_virginianus_NEW"
+path="/home/projects/rrg-shaferab/devan"
