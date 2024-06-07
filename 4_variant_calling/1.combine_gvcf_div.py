@@ -24,7 +24,7 @@ for line in f:
     name = line.split()[0]
     if name not in bamfile_dir:
         bamfile_dir[name] = []
-    bamfile_dir[name] = "{}/{}/bam_files/{}_sorted.merged.addg.uniq.rmdup.bam".format(path, sp, name)
+    bamfile_dir[name] = "{}/{}/bam_files/{}_sorted.addg.uniq.rmdup.bam".format(path, sp, name)
 
 # And VCF
 f = open('{}/{}/vcf_files.txt'.format(path, sp))
@@ -42,23 +42,23 @@ chrom_name = pd.read_csv('{}chromosomes.txt'.format(chrom_dir),sep=' ', index_co
 # The function:
 def combine(chrom_old, chrom_new, direct):
     """Combine all samples with GenomicsDBImport"""
-    combine_cmd = "gatk --java-options \"-XX:ParallelGCThreads=1 -Xmx100g -Djava.io.tmpdir=/scratch/$SLURM_JOBID/\" GenomicsDBImport "
+    combine_cmd = "gatk --java-options \"-XX:ParallelGCThreads=1 -Xmx100g -Djava.io.tmpdir=/home/devan/scratch/\" GenomicsDBImport "
     for i in vcf_dir:
         combine_cmd += "--variant {}{} ".format(direct,i)
-    combine_cmd += "--TMP_DIR /scratch/$SLURM_JOBID/ "
-    combine_cmd += "--genomicsdb-workspace-path /scratch/$SLURM_JOBID/genomicDBI_{} ".format(chrom_new)
+    combine_cmd += "--tmp_dir /home/devan/scratch/ "
+    combine_cmd += "--genomicsdb-workspace-path /home/devan/scratch/genomicDBI_{} ".format(chrom_new)
     combine_cmd += "-L {} ".format(chrom_old)
     """Create a .sh files with the combine variant functions."""
     file = open('{}combine_genomicDBImport_{}.sh'.format(direct, chrom_new),'w')
     file.write('#!/bin/bash \n')
-    file.write('#SBATCH --partition short,normal \n')
+    file.write('#SBATCH --account=rrg-shaferab \n')
     file.write('#SBATCH --mem 110G \n')
-    file.write('#SBATCH -c 1 \n')
+    file.write('#SBATCH -cpus-per-task=1 \n')
     file.write('#SBATCH --time=10:00:00 \n')
 ##    file.write('#SBATCH --time=250:00:00 \n')
     file.write(combine_cmd)
     file.write('\n')
-    file.write('cp -a /scratch/$SLURM_JOBID/genomicDBI_{} {}genomicDBI_{}'.format(chrom_new, direct, chrom_new))
+    file.write('cp -a /home/devan/scratch/genomicDBI_{} {}genomicDBI_{}'.format(chrom_new, direct, chrom_new))
     file.close()
     ##"""Submit the .sh to the server"""
     sub_cmd = "sbatch -o {}combine_genomicDBImport_{}.out {}combine_genomicDBImport_{}.sh".format(direct, chrom_new, direct, chrom_new)
