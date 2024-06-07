@@ -1,38 +1,38 @@
 ## This script creates all the directories needed for the pipeline.
 SPECIES=Odocoileus_virginianus
-PATH=/home/projects/rrg-shaferab/devan
+Path=/home/projects/rrg-shaferab/devan
 
 ############################################################################################################
-mkdir $PATH/$SPECIES/
+mkdir $Path/$SPECIES/
 
-mkdir $PATH/$SPECIES/ref_fasta
+mkdir $Path/$SPECIES/ref_fasta
 
-mkdir $PATH/$SPECIES/fastq_files
-mkdir $PATH/$SPECIES/fastq_files/catenate
+mkdir $Path/$SPECIES/fastq_files
+mkdir $Path/$SPECIES/fastq_files/catenate
 
-mkdir $PATH/$SPECIES/trimmed_seq
+mkdir $Path/$SPECIES/trimmed_seq
 
-mkdir $PATH/$SPECIES/bam_files
-mkdir $PATH/$SPECIES/bam_files/coverage
-mkdir $PATH/$SPECIES/bam_files/coverage/cov.log
-mkdir $PATH/$SPECIES/bam_files/inter_bam
-mkdir $PATH/$SPECIES/bam_files/map.log
-mkdir $PATH/$SPECIES/bam_files/merge.log
-mkdir $PATH/$SPECIES/bam_files/recal.log
-mkdir $PATH/$SPECIES/bam_files/summary
-mkdir $PATH/$SPECIES/bam_files/uniq_rmdup.log
+mkdir $Path/$SPECIES/bam_files
+mkdir $Path/$SPECIES/bam_files/coverage
+mkdir $Path/$SPECIES/bam_files/coverage/cov.log
+mkdir $Path/$SPECIES/bam_files/inter_bam
+mkdir $Path/$SPECIES/bam_files/map.log
+mkdir $Path/$SPECIES/bam_files/merge.log
+mkdir $Path/$SPECIES/bam_files/recal.log
+mkdir $Path/$SPECIES/bam_files/summary
+mkdir $Path/$SPECIES/bam_files/uniq_rmdup.log
 
-mkdir $PATH/$SPECIES/vcf_files
-mkdir $PATH/$SPECIES/vcf_files/inter_vcf
-mkdir $PATH/$SPECIES/vcf_files/back_com.log
-mkdir $PATH/$SPECIES/vcf_files/call.log
-mkdir $PATH/$SPECIES/vcf_files/combine.log
-mkdir $PATH/$SPECIES/vcf_files/gather.log
+mkdir $Path/$SPECIES/vcf_files
+mkdir $Path/$SPECIES/vcf_files/inter_vcf
+mkdir $Path/$SPECIES/vcf_files/back_com.log
+mkdir $Path/$SPECIES/vcf_files/call.log
+mkdir $Path/$SPECIES/vcf_files/combine.log
+mkdir $Path/$SPECIES/vcf_files/gather.log
 
-mkdir $PATH/$SPECIES/vcf_handling
-mkdir $PATH/$SPECIES/vcf_handling/log_file
-mkdir $PATH/$SPECIES/vcf_handling/inter_vcf
+mkdir $Path/$SPECIES/vcf_handling
+mkdir $Path/$SPECIES/vcf_handling/log_file
+mkdir $Path/$SPECIES/vcf_handling/inter_vcf
 
-mkdir $PATH/$SPECIES/de_novo_mutation
-mkdir $PATH/$SPECIES/de_novo_mutation/log_file
-mkdir $PATH/$SPECIES/de_novo_mutation/inter_vcf
+mkdir $Path/$SPECIES/de_novo_mutation
+mkdir $Path/$SPECIES/de_novo_mutation/log_file
+mkdir $Path/$SPECIES/de_novo_mutation/inter_vcf
