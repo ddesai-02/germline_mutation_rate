@@ -38,9 +38,9 @@ def submit_bwa_map(insert_size, ref_genome, read_1, read_2, output):
     """Create a .sh files with the `bwa mem` function."""
     file = open('{}.sh'.format(output),'w')
     file.write('#!/bin/bash \n')
-    file.write('#SBATCH --partition normal \n')
+    file.write('#SBATCH --account=rrg-shaferab \n')
     file.write('#SBATCH --mem 256G \n')
-    file.write('#SBATCH -c 24 \n')
+    file.write('#SBATCH -cpus-per-task=24 \n')
     file.write('#SBATCH --time=12:00:00 \n')
     file.write(map_cmd)
     file.write('\n')
