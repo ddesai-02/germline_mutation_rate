@@ -1,4 +1,4 @@
-# Write $PATH/$SPECIES/raw_seq_dir_w.txt
+# Write $PATH/$SPECIES/raw_seq_dir.txt
 # From excel table: Sample lane1_read_1.fq.gz lane1_read_2.fq.gz
 
 AD139_M	$Path/TRIO_FQ/AD139_S29_L003_R1_001.fastq.gz	$Path/TRIO_FQ/AD139_S29_L003_R2_001.fastq.gz
