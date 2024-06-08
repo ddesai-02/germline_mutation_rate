@@ -26,9 +26,9 @@ for line in f:
 
 
 # The function:
-def coverage(in_dir, seq, out_dir):
+def coverage(direct, seq, out_dir):
     """The samtools function"""
-    cov_cmd = "samtools depth {}{}_sorted.merged.addg.uniq.rmdup.bam 1> {}{}_coverage.txt".format(in_dir, seq, out_dir, seq)
+    cov_cmd = "samtools depth {}{}_sorted.merged.addg.uniq.rmdup.bam 1> {}{}_coverage.txt".format(direct, seq, out_dir, seq)
     print("\t samtools depth for coverage --> {}{}_coverage.txt".format(out_dir, seq))
     """Summarize coverage"""
     sum_cmd = "python {}{}_coverage_python.py".format(out_dir, seq)
@@ -110,7 +110,7 @@ for name in bamfile_dir:
         print("\t The coverage of {} has already been calculated --> NOT CALCULATED".format(name))
     else:
         print("\t The coverage of {} has NOT been calculated".format(name))
-        coverage(in_dir=in_dir, seq=name, out_dir=out_dir)
+        coverage(direct=in_dir, seq=name, out_dir=out_dir)
 
 chr_name(seq=name, direct=in_dir)
 print("\n Look at the name of chromosome only for {} sequence".format(name))
