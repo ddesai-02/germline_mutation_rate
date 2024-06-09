@@ -1,6 +1,5 @@
 ## This script creates all the directories needed for the pipeline.
-sp=Odocoileus_virginianus
-path=/home/projects/rrg-shaferab/devan
+source ../variable.py
 
 ############################################################################################################
 mkdir $path/$sp/
