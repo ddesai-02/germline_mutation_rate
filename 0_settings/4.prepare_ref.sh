@@ -1,4 +1,7 @@
+#!/usr/bin/env bash
 # The reference genome should be indexed with:
-bwa index -p {ref_genome} -a bwtsw {ref_genome}.fa
-java -jar picard.jar CreateSequenceDictionary R={ref_genome}.fa O={ref_genome}.dict
-samtools faidx {ref_genome}.fa
+source ../variable.py
+
+bwa index -p $refGenome -a bwtsw $refGenome.fa
+java -jar picard.jar CreateSequenceDictionary R=$refGenome.fa O=$refGenome.dict
+samtools faidx $refGenome.fa

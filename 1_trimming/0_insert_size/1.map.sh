@@ -3,17 +3,15 @@
 ## This script evaluate the insert size of the PE sequences by:
 ## 2. single end mapping the reads,
 ##
-source ../variable.py
+source ../../variable.py
 ##################################################
-SP=$sp
-Path=$path
 SP_REF=$refGenome
 ## create directories:
 mkdir -p 1.map/map_seq
-## 1.map mapping: ####################################################################################################################################################
+## 1.map mapping: 
 ## Reconstruction of mapping.sh file by running "map.sh path/ref_genome" (no .fa):
 ##
-bash map.sh $Path/$SP/ref_fasta/$SP_REF
+bash map.sh $path/$sp/ref_fasta/$SP_REF
 ##
 ## Then you run a bash file to split the single map and submit them in the same time:
 bash submit_split.sh

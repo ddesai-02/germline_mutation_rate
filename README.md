@@ -11,6 +11,7 @@ A first step (0_settings) informe on the directories to create and file to write
 Then the pipeline consists of 6 steps that should be run in order. In each step a README.txt explains how to run the different scripts.
 
 The steps are:
+0. Modify variable.py (there are multiple, make them all the same), write_pedigree.txt, write_files.txt, and write_chromosomes.txt (or scaffolds)
 1. Trimming the raw fatq files and estimating insert size.
 2. Mapping each lanes to the reference genome (bwa mem) and merging all the lanes for a single individual.
 3. Processing the bam file to remove PCR duplicate reads or reads mapping to multiple location (+ quality control on coverage).

@@ -1,6 +1,7 @@
-# Write in PATH/SP/chromosomes.txt:
+# Write in path/sp/scaffolds.txt:
 # Format: name_in_ref name_you_give
-# Scaffolds - Not chromosomes
+# Scaffolds or chromosomes
+
 CM042915.1 CM042915.1
 CM042916.1 CM042916.1
 CM042917.1 CM042917.1

@@ -34,22 +34,22 @@ def uniq_rmdup(input_bam, output_u, output_d, direct, sp):
     uniq_cmd += "grep -v -e 'XA:Z:' -e 'SA:Z:' | "
     uniq_cmd += "samtools view -b > {}".format(output_u)
     """The remove duplicate function"""
-    rmdup_cmd = "gatk --java-options \"-XX:ParallelGCThreads=16 -Xmx100g -Djava.io.tmpdir=/scratch/$SLURM_JOBID/\" MarkDuplicates "
+    rmdup_cmd = "gatk --java-options \"-XX:ParallelGCThreads=16 -Xmx100g -Djava.io.tmpdir={}\" MarkDuplicates ".format(scratch_dir)
     rmdup_cmd += "-I= {} ".format(output_u)
     rmdup_cmd += "-OUTPUT= {} ".format(output_d)
     rmdup_cmd += "-REMOVE_DUPLICATES=true "
     rmdup_cmd += "-METRICS_FILE=metrics.txt "
     rmdup_cmd += "-MAX_FILE_HANDLES=800 "
-    rmdup_cmd += "-TMP_DIR=/scratch/$SLURM_JOBID/ "
+    rmdup_cmd += "--tmp-dir {} ".format(scratch_dir)
     rmdup_cmd += "-READ_NAME_REGEX=null"
     """The samtools index function."""
     index_cmd = "samtools index {}".format(output_d)
     """Create a .sh files with the keep uniq and remove duplicates functions."""
     file = open('{}_uniq_rmdup_idx.sh'.format(direct),'w')
     file.write('#!/bin/bash \n')
-    file.write('#SBATCH --partition normal \n')
+    file.write('#SBATCH --account={} \n'.format(account))
     file.write('#SBATCH --mem 128G \n')
-    file.write('#SBATCH -c 16 \n')
+    file.write('#SBATCH --cpus-per-task=16 \n')
     file.write('#SBATCH --time=30:00:00 \n')
     file.write(uniq_cmd)
     file.write('\n')

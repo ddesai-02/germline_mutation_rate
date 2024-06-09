@@ -1,4 +1,4 @@
-# Write $PATH/$SPECIES/pedigree.ped
+# Write $Path/$sp/pedigree.ped
 # Format ped
 # Group Offspring Father Mother Sex Phenotype
 G1  AD139_M	AD127_M	AD081_F	M	NA
