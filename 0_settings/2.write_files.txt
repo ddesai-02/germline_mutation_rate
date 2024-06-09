@@ -1,4 +1,4 @@
-# Write $Path/$sp/raw_seq_dir_w.txt
+# Write $path/$sp/raw_seq_dir_w.txt
 
 AD139_M	$Path/TRIO_FQ/AD139_S29_L003_R1_001.fastq.gz	$Path/TRIO_FQ/AD139_S29_L003_R2_001.fastq.gz
 AD127_M	$Path/TRIO_FQ/AD127_S27_L003_R1_001.fastq.gz	$Path/TRIO_FQ/AD127_S27_L003_R2_001.fastq.gz
