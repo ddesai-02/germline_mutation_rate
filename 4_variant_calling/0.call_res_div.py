@@ -36,9 +36,9 @@ genome_assembly = pd.read_csv('{}scaffolds.txt'.format(scaff_dir),sep=' ', index
 def call_var(ref, in_bam, out_vcf, scaff_old, out_dir, scaff_new):
     """Haplotype caller function to call variants for each samples"""
     call_cmd = "gatk --java-options \"-XX:ParallelGCThreads=1 -Xmx90g -Djava.io.tmpdir={}\" HaplotypeCaller ".format(scratch_dir)
-    call_cmd += "-R= {} ".format(ref)
-    call_cmd += "-I= {} ".format(in_bam)
-    call_cmd += "-O= {} ".format(out_vcf)
+    call_cmd += "-R {} ".format(ref)
+    call_cmd += "-I {} ".format(in_bam)
+    call_cmd += "-O {} ".format(out_vcf)
     call_cmd += "-ERC BP_RESOLUTION "
     call_cmd += "-L {} ".format(scaff_old)
     call_cmd += "--dont-use-soft-clipped-bases "
