@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
-This script call variants in BR RESOLUTION for all individuals per chromosomes
+This script call variants in BP RESOLUTION for all individuals per chromosome/scaffold
 """
-##################################################
-# What you need ##################################
-##################################################
+#################
+# What you need #
+#################
 
 # Packages:
 import subprocess
@@ -33,7 +33,7 @@ genome_assembly = pd.read_csv('{}scaffolds.txt'.format(scaff_dir),sep=' ', index
 
 
 # The function:
-def call_var(ref, in_bam, out_vcf, scaff_old, out_dir, scaff_new):
+def call_var(ref, in_bam, out_vcf, scaff_old, out_dir):
     """Haplotype caller function to call variants for each samples"""
     call_cmd = "gatk --java-options \"-XX:ParallelGCThreads=1 -Xmx90g -Djava.io.tmpdir={}\" HaplotypeCaller ".format(scratch_dir)
     call_cmd += "-R {} ".format(ref)
@@ -45,7 +45,7 @@ def call_var(ref, in_bam, out_vcf, scaff_old, out_dir, scaff_new):
     call_cmd += "--native-pair-hmm-threads 1 "
     call_cmd += "--tmp-dir {} ".format(scratch_dir)
     """Create a .sh files with the calling variant functions."""
-    file = open('{}_call_res_g_{}.sh'.format(out_dir, scaff_new),'w')
+    file = open('{}_call_res_g_{}.sh'.format(out_dir, scaff_old),'w')
     file.write('#!/bin/bash \n')
     file.write('#SBATCH --account{}} \n'.format(account))
     file.write('#SBATCH --mem 16G \n')
@@ -55,13 +55,13 @@ def call_var(ref, in_bam, out_vcf, scaff_old, out_dir, scaff_new):
     file.write('\n')
     file.close()
     ##"""Submit the .sh to the server"""
-    sub_cmd = "sbatch -o {}_call_res_g_{}.out {}_call_res_g_{}.sh".format(out_dir, scaff_new, out_dir, scaff_new)
+    sub_cmd = "sbatch -o {}_call_res_g_{}.out {}_call_res_g_{}.sh".format(out_dir, scaff_old, out_dir, scaff_old)
     subprocess.call(sub_cmd, shell=True)
 
 
-##################################################
-# What you run  ##################################
-##################################################
+#################
+# What you run  #
+#################
 
 vcf_files_dir = open("{}/{}/vcf_files.txt".format(path, sp), "w")
 
@@ -75,8 +75,7 @@ for name in bamfile_dir: # for each individual
         else:
             print("\t The res.g.vcf file for {} doesn't exist --> submit the function".format(current))
             scaff_old=genome_assembly[0][scaff]
-            scaff_new=genome_assembly[0][scaff + 1]
-            call_var(ref=ref_dir, in_bam=bamfile_dir[name], out_vcf="{}{}_{}_res.g.vcf".format(vcf_dir, name, scaff_new), scaff_old=scaff_old, out_dir="{}{}".format(vcf_dir, name), scaff_new=scaff_new)
+            call_var(ref=ref_dir, in_bam=bamfile_dir[name], out_vcf="{}{}_{}_res.g.vcf".format(vcf_dir, name, scaff_old), scaff_old=scaff_old, out_dir="{}{}".format(vcf_dir, name))
             vcf_files_dir.write(current + "_res.g.vcf \n")
 vcf_files_dir.close()
 
