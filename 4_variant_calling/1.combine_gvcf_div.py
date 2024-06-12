@@ -53,7 +53,7 @@ def combine(scaff_old, scaff_new, direct):
     file.write('#!/bin/bash \n')
     file.write('#SBATCH --account={} \n'.format(account))
     file.write('#SBATCH --mem 110G \n')
-    file.write('#SBATCH -cpus-per-task=1 \n')
+    file.write('#SBATCH --cpus-per-task=1 \n')
     file.write('#SBATCH --time=10:00:00 \n')
 ##    file.write('#SBATCH --time=250:00:00 \n')
     file.write(combine_cmd)
