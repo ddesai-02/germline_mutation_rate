@@ -72,6 +72,7 @@ for name in bamfile_dir: # for each individual
 
         if os.path.exists("{}{}_res.g.vcf".format(vcf_dir, current)): # check if vcf for individual exists
             print("\t The res.g.vcf file for {} already exists --> CALL VARIANT DONE".format(current))
+            vcf_files_dir.write(current + "_res.g.vcf \n")
         else:
             print("\t The res.g.vcf file for {} doesn't exist --> submit the function".format(current))
             scaff_old=genome_assembly[0][scaff]
