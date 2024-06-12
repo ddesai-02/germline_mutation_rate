@@ -3,9 +3,9 @@
 This script genotypes and constructs back combined files
 from the GenomicDBI folders VCF files per chromosome or scaffolds for all individuals.
 """
-##################################################
-# What you need ##################################
-##################################################
+#################
+# What you need #
+#################
 
 # Packages:
 import subprocess
@@ -66,11 +66,9 @@ def back_combine(ref, sp, scaff, direct):
     sub_cmd = "sbatch -o {}back_combine_genomicDBImport_{}.out {}back_combine_genomicDBImport_{}.sh".format(direct, scaff, direct, scaff)
     subprocess.call(sub_cmd, shell=True)
 
-
-
-##################################################
-# What you run  ##################################
-##################################################
+################
+# What you run #
+################
 
 # For each chromosome/scaffold one function:
 list_exist=[]
