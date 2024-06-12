@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """
-This script catenate the GVCF files per scaffosome for all individuals.
+This script catenate the GVCF files per scaffold/chromosome for all individuals.
 """
-##################################################
-# What you need ##################################
-##################################################
+#################
+# What you need #
+#################
 
 # Packages:
 import subprocess
@@ -65,9 +65,9 @@ def combine(scaff_old, scaff_new, direct):
     subprocess.call(sub_cmd, shell=True)
 
 
-##################################################
-# What you run  ##################################
-##################################################
+################
+# What you run #
+################
 
 # For each scaffosome one function:
 list_exist=[]
@@ -84,9 +84,7 @@ if all(list_exist):
         vcf_dir=[]
         for name in bamfile_dir:
             vcf_dir.append("{}_{}_res.g.vcf".format(name, scaff_new))
-        print("Combine for scaffosome {} called {}".format(scaff_new, scaff_old))
+        print("Combine for scaffold/chromosome {} called {}".format(scaff_new, scaff_old))
         combine(scaff_old=scaff_old, scaff_new=scaff_new, direct=direct)
 else:
     print("\t Some res.g.vcf file are missing --> PROBLEM")
-
-
