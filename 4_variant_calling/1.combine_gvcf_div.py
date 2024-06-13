@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-This script catenate the GVCF files per scaffosome for all individuals.
+This script catenate the GVCF files per scaffold/chromosome for all individuals.
 """
 #################
 # What you need #
@@ -53,7 +53,7 @@ def combine(scaffold, direct):
     file.write('#!/bin/bash \n')
     file.write('#SBATCH --account={} \n'.format(account))
     file.write('#SBATCH --mem 110G \n')
-    file.write('#SBATCH -cpus-per-task=1 \n')
+    file.write('#SBATCH --cpus-per-task=1 \n')
     file.write('#SBATCH --time=10:00:00 \n')
 ##    file.write('#SBATCH --time=250:00:00 \n')
     file.write(combine_cmd)
@@ -83,7 +83,7 @@ if all(list_exist):
         vcf_dir=[]
         for name in bamfile_dir:
             vcf_dir.append("{}_{}_res.g.vcf".format(name, scaffold))
-        print("Combine for scaffold {} called {}".format(scaffold, scaffold))
+        print("Combine for scaffold/chromosome {} called {}".format(scaffold, scaffold))
         combine(scaffold=scaffold, direct=direct)
 else:
     print("\t Some res.g.vcf file are missing --> PROBLEM")
