@@ -11,6 +11,7 @@ This script gathers the genotypes per chromosomes into one file
 import subprocess
 import os
 from variable import *
+from ntfy import Generate_cURL_cmd
 import pandas as pd
 
 # Directories:
@@ -43,9 +44,9 @@ def gather(direct, list_file, output, what, scaff):
     file.write('#SBATCH --mem 124G \n')
     file.write('#SBATCH --cpus-per-task=16 \n')
     file.write('#SBATCH --time=12:00:00 \n')
-    file.write('curl -d "Gathering {} {}" {}'.format(what, scaff, ntfy_server))
+    file.write(Generate_cURL_cmd("Gathering {} {}".format(what, scaff)))
     file.write(gather_cmd)
-    file.write('curl -d "Finished gathering {} {}" {}\nResult: $?'.format(what, scaff, ntfy_server))
+    file.write(Generate_cURL_cmd("Finished gathering {} {}\nCommand: {}\nResult: $?".format(what, scaff, gather_cmd)))
     file.write('\n')
     file.close()
     ##"""Submit the .sh to the server"""
