@@ -76,7 +76,7 @@ for line in range(0, nb_scaff):
     scaff=genome_assembly.loc[line,1]
     list_exist.append(os.path.exists("{}genomicDBI_{}".format(direct, scaff)))
 if all(list_exist):
-    print("\t All the genomicDBI directoris exist --> combine variant done")
+    print("\t All the genomicDBI directories exist --> combine variant done")
     mv_com = "mv {}combine_genomicDBImport_* {}combine.log".format(direct, direct)
     subprocess.call(mv_com, shell=True)
     print("\t Move the combine log files")
