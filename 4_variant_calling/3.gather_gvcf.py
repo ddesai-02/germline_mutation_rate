@@ -30,7 +30,7 @@ for line in range(0,nb_scaff):
 
 
 # The function:
-def gather(direct, list_file, output, what):
+def gather(direct, list_file, output, what, scaff):
     """Gather each chrom/scaff together"""
     gather_cmd = "gatk --java-options \"-XX:ParallelGCThreads=16 -Xmx120g \" GatherVcfs "
     for i in list_file:
@@ -43,7 +43,9 @@ def gather(direct, list_file, output, what):
     file.write('#SBATCH --mem 124G \n')
     file.write('#SBATCH --cpus-per-task=16 \n')
     file.write('#SBATCH --time=12:00:00 \n')
+    file.write('curl -d "Gathering {} {}" {}'.format(what, scaff, ntfy_server))
     file.write(gather_cmd)
+    file.write('curl -d "Finished gathering {} {}" {}'.format(what, scaff, ntfy_server))
     file.write('\n')
     file.close()
     ##"""Submit the .sh to the server"""
@@ -65,7 +67,7 @@ if all(list_exist):
     mv_bc= "mv {}back_combine_genomicDBImport_* {}back_com.log/".format(direct, direct)
     subprocess.call(mv_bc, shell=True)
     print("\t Move the back combine log files")
-    gather(direct=direct, list_file=back_dir, output="{}back_combine_genomicDBI_gather.g.vcf".format(direct), what="back_combine")
+    gather(direct=direct, list_file=back_dir, output="{}back_combine_genomicDBI_gather.g.vcf".format(direct), what="back_combine", scaff=scaff)
     print("Gather back combine")
 
 list_exist=[]
@@ -77,5 +79,5 @@ if all(list_exist):
     mv_geno= "mv {}genotype_genomicDBImport_* {}back_com.log/".format(direct, direct)
     subprocess.call(mv_geno, shell=True)
     print("\t Move the genotype log files")
-    gather(direct=direct, list_file=geno_dir, output="{}genotype_genomicDBI_gather.g.vcf".format(direct), what="genotype")
+    gather(direct=direct, list_file=geno_dir, output="{}genotype_genomicDBI_gather.g.vcf".format(direct), what="genotype", scaff=scaff)
     print("Gather genotypes")
