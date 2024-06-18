@@ -45,8 +45,11 @@ def gather(direct, list_file, output, what, scaff):
     file.write('#SBATCH --cpus-per-task=16 \n')
     file.write('#SBATCH --time=12:00:00 \n')
     file.write(Generate_cURL_cmd("Gathering {} {}".format(what, scaff)))
+    file.write("startTime=`date +%s`")
     file.write(gather_cmd)
-    file.write(Generate_cURL_cmd("Finished gathering {} {}\nCommand: {}\nResult: $?".format(what, scaff, gather_cmd)))
+    file.write("endTime=`date +%s`")
+    file.write("runtime=$((endTime - startTime))")
+    file.write(Generate_cURL_cmd("Finished gathering {} {}\nRuntime (seconds): $runtime\nCommand: {}\nResult: $?".format(what, scaff, gather_cmd)))
     file.write('\n')
     file.close()
     ##"""Submit the .sh to the server"""
