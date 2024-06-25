@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 """
-This script checked if:
+This script checks if:
  the gather genotype and gather back_combined exist
- move to log_files the useless files
+ moves useless files to log_files
 """
-##################################################
-# What you need ##################################
-##################################################
+#################
+# What you need #
+#################
 
 # Packages:
 import subprocess
@@ -27,9 +27,9 @@ for line in f:
     vcf_dir[name] = vcf
 
 
-##################################################
-# What you run  ##################################
-##################################################
+################
+# What you run #
+################
 
 if os.path.exists("{}back_combine_genomicDBI_gather.g.vcf".format(direct)) and os.path.exists("{}genotype_genomicDBI_gather.g.vcf".format(direct)):
     print("Gathered back combine and genotype exist --> ready for vcf_handeling")
@@ -47,4 +47,3 @@ else:
         print("Gathered genotype exists --> PROBLEM with back combine")
     elif os.path.exists("{}back_combine_genomicDBI_gather.g.vcf".format(direct)):
         print("Gathered back combine exists --> PROBLEM with genotype")
-
