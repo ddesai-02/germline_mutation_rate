@@ -34,10 +34,12 @@ for line in f:
 if os.path.exists("{}back_combine_genomicDBI_gather.g.vcf".format(direct)) and os.path.exists("{}genotype_genomicDBI_gather.g.vcf".format(direct)):
     print("Gathered back combine and genotype exist --> ready for vcf_handeling")
 ## Something else...
-    mv_vcf = "mv {}*_chr*.g.vcf* {}inter_vcf/".format(direct, direct)
+    mv_vcf = "mv {}*_CM*.g.vcf* {}inter_vcf/".format(direct, direct)
     subprocess.call(mv_vcf, shell=True)
-    mv_vcf1 = "mv {}*_scaff*.g.vcf* {}inter_vcf/".format(direct, direct)
+    mv_vcf1 = "mv {}*_JA*.g.vcf* {}inter_vcf/".format(direct, direct)
     subprocess.call(mv_vcf1, shell=True)
+    mv_vcf2 = "mv {}*_MU*.g.vcf* {}inter_vcf/".format(direct, direct)
+    subprocess.call(mv_vcf2, shell=True)
     print("Move the inter vcf files")
     mv_log = "mv {}gather_genomicDBImport* {}gather.log".format(direct, direct)
     subprocess.call(mv_log, shell=True)
