@@ -2,9 +2,9 @@
 """
 This script test the relatedness between individuals and create a genotype/back_combine files per trios.
 """
-##################################################
-# What you need ##################################
-##################################################
+#################
+# What you need #
+#################
 
 # Packages:
 import subprocess
@@ -37,8 +37,9 @@ def relatedness(vcf_in, output, direct):
     """Create a .sh files with the relatedness functions."""
     file = open('{}relatedness.sh'.format(direct),'w')
     file.write('#!/bin/bash \n')
+    file.write('#SBATCH --account={} \n'.format(account))
     file.write('#SBATCH --mem 56G \n')
-    file.write('#SBATCH -c 1 \n')
+    file.write('#SBATCH --cpus-per-task=1 \n')
     file.write('#SBATCH --time=01:00:00 \n')
     file.write(rn_cmd)
     file.write('\n')
@@ -60,8 +61,9 @@ def select_trio(ref, geno_file, off, fa, mo, direct, output_trio, cpu, mem_j, me
     """Create a .sh files with the select trio functions."""
     file = open('{}{}.sh'.format(direct, output_trio),'w')
     file.write('#!/bin/bash \n')
+    file.write('#SBATCH --account={} \n'.format(account))
     file.write('#SBATCH --mem {}G \n'.format(mem_r))
-    file.write('#SBATCH -c {} \n'.format(cpu))
+    file.write('#SBATCH --cpus-per-task={} \n'.format(cpu))
     file.write('#SBATCH --time={}:00:00 \n'.format(time))
     file.write(sel_cmd)
     file.write('\n')
@@ -71,9 +73,9 @@ def select_trio(ref, geno_file, off, fa, mo, direct, output_trio, cpu, mem_j, me
     subprocess.call(sub_cmd, shell=True)
 
 
-##################################################
-# What you run  ##################################
-##################################################
+################
+# What you run #
+################
 
 ##Test for relatedness:
 relatedness(vcf_in="{}genotype_genomicDBI_gather.g.vcf".format(vcf_dir), output="{}{}".format(direct, sp), direct=direct)
