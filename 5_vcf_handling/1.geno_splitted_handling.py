@@ -67,7 +67,6 @@ def geno_handling(ref, geno_file, direct, output_snp, output_filt, pedigree, out
     file = open('{}geno_handling_{}.sh'.format(direct, name),'w')
     file.write('#!/bin/bash \n')
     file.write('#SBATCH --account={} \n'.format(account))
-    file.write('#SBATCH --partition express,normal \n')
     file.write('#SBATCH --mem 64G \n')
     file.write('#SBATCH --cpus-per-task=16 \n')
     file.write('#SBATCH --time=00:50:00 \n')
