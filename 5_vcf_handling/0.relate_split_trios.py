@@ -52,12 +52,12 @@ def relatedness(vcf_in, output, direct):
 def select_trio(ref, geno_file, off, fa, mo, direct, output_trio, cpu, mem_j, mem_r, time):
     """Select a trio"""
     sel_cmd = "gatk --java-options \"-XX:ParallelGCThreads={} -Xmx{}g \" SelectVariants ".format(cpu, mem_j)
-    sel_cmd += "-R={} ".format(ref)
-    sel_cmd += "-V={} ".format(geno_file)
+    sel_cmd += "-R {} ".format(ref)
+    sel_cmd += "-V {} ".format(geno_file)
     sel_cmd += "-sn {} ".format(off)
     sel_cmd += "-sn {} ".format(fa)
     sel_cmd += "-sn {} ".format(mo)
-    sel_cmd += "-O={}{}.g.vcf ".format(direct, output_trio)
+    sel_cmd += "-O {}{}.g.vcf ".format(direct, output_trio)
     """Create a .sh files with the select trio functions."""
     file = open('{}{}.sh'.format(direct, output_trio),'w')
     file.write('#!/bin/bash \n')
