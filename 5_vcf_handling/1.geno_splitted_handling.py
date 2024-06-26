@@ -6,9 +6,9 @@ This script can be run when genotype has been splitted per trios and:
        - detect MV
        - convert to table
 """
-##################################################
-# What you need ##################################
-##################################################
+#################
+# What you need #
+#################
 
 # Packages:
 import subprocess
@@ -39,36 +39,37 @@ for line in f:
 def geno_handling(ref, geno_file, direct, output_snp, output_filt, pedigree, output_mv, output_table, name):
     """Select SNPs on the genotype vcf"""
     snp_cmd = "gatk --java-options \"-XX:ParallelGCThreads=16 -Xmx60g \" SelectVariants "
-    snp_cmd += "-R={} ".format(ref)
-    snp_cmd += "-V={} ".format(geno_file)
+    snp_cmd += "-R {} ".format(ref)
+    snp_cmd += "-V {} ".format(geno_file)
     snp_cmd += "--select-type-to-include SNP "
-    snp_cmd += "-O={}{}".format(direct, output_snp)
+    snp_cmd += "-O {}{}".format(direct, output_snp)
     """Site filter SNPs on the genotype vcf"""
     sfilt_cmd = "gatk --java-options \"-XX:ParallelGCThreads=16 -Xmx60g \" VariantFiltration "
-    sfilt_cmd += "-R={} ".format(ref)
-    sfilt_cmd += "-V={}{} ".format(direct, output_snp)
+    sfilt_cmd += "-R {} ".format(ref)
+    sfilt_cmd += "-V {}{} ".format(direct, output_snp)
     sfilt_cmd += "--filter-expression \"QD < 2.0 || FS > 20.0 || MQ < 40.0 || MQRankSum < -2.0 || MQRankSum > 4.0 || ReadPosRankSum < -3.0 || ReadPosRankSum > 3.0 || SOR > 3.0\"  "
     sfilt_cmd += "--filter-name \"my_snp_filter\"  "
-    sfilt_cmd += "-O={}{}".format(direct, output_filt)
+    sfilt_cmd += "-O {}{}".format(direct, output_filt)
     """Select mendelian violations"""
     mv_cmd = "gatk --java-options \"-XX:ParallelGCThreads=16 -Xmx60g \" SelectVariants "
-    mv_cmd += "-R={} ".format(ref)
-    mv_cmd += "-V={}{} ".format(direct, output_filt)
+    mv_cmd += "-R {} ".format(ref)
+    mv_cmd += "-V {}{} ".format(direct, output_filt)
     mv_cmd += "-ped {} ".format(pedigree)
     mv_cmd += "--mendelian-violation "
-    mv_cmd += "-O={}{}".format(direct, output_mv)
+    mv_cmd += "-O {}{}".format(direct, output_mv)
     """Variants to table function"""
     vtt_cmd = "gatk --java-options \"-XX:ParallelGCThreads=16 -Xmx60g \" VariantsToTable "
-    vtt_cmd += "-V={}{} ".format(direct, output_mv)
+    vtt_cmd += "-V {}{} ".format(direct, output_mv)
     vtt_cmd += "-F CHROM -F POS -F TYPE -F REF -F ALT -F FILTER -GF GT -GF AD -GF DP -GF GQ -GF PL -GF SAC "
-    vtt_cmd += "-O={}{} ".format(direct, output_table)
+    vtt_cmd += "-O {}{} ".format(direct, output_table)
     vtt_cmd += "--show-filtered"
     """Create a .sh files with the filter functions."""
     file = open('{}geno_handling_{}.sh'.format(direct, name),'w')
     file.write('#!/bin/bash \n')
+    file.write('#SBATCH --account={} \n'.format(account))
     file.write('#SBATCH --partition express,normal \n')
     file.write('#SBATCH --mem 64G \n')
-    file.write('#SBATCH -c 16 \n')
+    file.write('#SBATCH -cpus-per-task=16 \n')
     file.write('#SBATCH --time=00:50:00 \n')
     file.write('## Select the SNPs \n')
     file.write(snp_cmd)
@@ -88,9 +89,9 @@ def geno_handling(ref, geno_file, direct, output_snp, output_filt, pedigree, out
     subprocess.call(sub_cmd, shell=True)
 
 
-##################################################
-# What you run  ##################################
-##################################################
+################
+# What you run #
+################
 
 # Filter per trio files:
 list_exist=[]
