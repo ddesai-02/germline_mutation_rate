@@ -5,9 +5,9 @@ This script can be run when back has been splitted per trios and:
        - move the previous log files
        - find the mean depth save it in a file
 """
-##################################################
-# What you need ##################################
-##################################################
+#################
+# What you need #
+#################
 
 # Packages:
 import subprocess
@@ -54,8 +54,9 @@ def back_handling(direct, name):
     """Create a .sh files with all the functions."""
     file = open('{}back_handling_{}.sh'.format(direct, name),'w')
     file.write('#!/bin/bash \n')
+    file.write('#SBATCH --account={} \n'.format(account))
     file.write('#SBATCH --mem 150G \n')
-    file.write('#SBATCH -c 20 \n')
+    file.write('#SBATCH --cpus-per-task=20 \n')
     file.write('#SBATCH --time=10:00:00 \n')
     file.write('## Extract depth per samples \n')
     file.write(dp_1_cmd)
@@ -83,9 +84,9 @@ def back_handling(direct, name):
     subprocess.call(sub_cmd, shell=True)
 
 
-##################################################
-# What you run  ##################################
-##################################################
+################
+# What you run #
+################
 # Filter per trio files:
 list_exist=[]
 for name in trio_dir:
