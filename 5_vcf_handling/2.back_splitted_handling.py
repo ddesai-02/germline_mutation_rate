@@ -34,9 +34,9 @@ for line in f:
 # The functions:
 def back_handling(direct, name):
     """Extract the depth for each samples vcf"""
-    dp_1_cmd="egrep -v \"^#\" {}back_combine_genomicDBI_{}.g.vcf | cut -f 10 | sed 's/[^:]*://' | sed 's/[^:]*://' | sed 's/:.*$//' >>{}DP_{}_1.txt".format(direct, name, direct, name)
-    dp_2_cmd="egrep -v \"^#\" {}back_combine_genomicDBI_{}.g.vcf | cut -f 11 | sed 's/[^:]*://' | sed 's/[^:]*://' | sed 's/:.*$//' >>{}DP_{}_2.txt".format(direct, name, direct, name)
-    dp_3_cmd="egrep -v \"^#\" {}back_combine_genomicDBI_{}.g.vcf | cut -f 12 | sed 's/[^:]*://' | sed 's/[^:]*://' | sed 's/:.*$//' >>{}DP_{}_3.txt".format(direct, name, direct, name)
+    dp_1_cmd="egrep -v \"^#\" {}back_combine_genomicDBI_{}.g.vcf | cut -f 10 | sed 's|[^:]*:||' | sed 's|[^:]*:||' | sed 's|:.*$||' >>{}DP_{}_1.txt".format(direct, name, direct, name)
+    dp_2_cmd="egrep -v \"^#\" {}back_combine_genomicDBI_{}.g.vcf | cut -f 11 | sed 's|[^:]*:||' | sed 's|[^:]*:||' | sed 's|:.*$||' >>{}DP_{}_2.txt".format(direct, name, direct, name)
+    dp_3_cmd="egrep -v \"^#\" {}back_combine_genomicDBI_{}.g.vcf | cut -f 12 | sed 's|[^:]*:||' | sed 's|[^:]*:||' | sed 's|:.*$||' >>{}DP_{}_3.txt".format(direct, name, direct, name)
     """Awk to have only numbers"""
     awk1= "awk '$1 !~ /[^0-9]+/' {}DP_{}_1.txt>{}DP_{}_1_rm.txt".format(direct, name, direct, name)
     awk2= "awk '$1 !~ /[^0-9]+/' {}DP_{}_2.txt>{}DP_{}_2_rm.txt".format(direct, name, direct, name)

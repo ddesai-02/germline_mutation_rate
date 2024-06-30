@@ -2,9 +2,9 @@
 """
 This script look for callability per trio:
 """
-##################################################
-# What you need ##################################
-##################################################
+#################
+# What you need #
+#################
 
 # Packages:
 import subprocess
@@ -41,8 +41,9 @@ def call(direct_denovo, direct_handling, name, GQ_lim, DP_min, DP_max):
     """Create a .sh files with the BCF functions and grep the number of sites."""
     file = open('{}callability_{}.sh'.format(direct_denovo, name),'w')
     file.write('#!/bin/bash \n')
+    file.write('#SBATCH --account={} \n'.format(account))
     file.write('#SBATCH --mem 64G \n')
-    file.write('#SBATCH -c 16 \n')
+    file.write('#SBATCH --cpus-per-task=16 \n')
     file.write('#SBATCH --time=20:00:00 \n')
     file.write('## BCFtools\n')
     file.write(filt_cmd)
@@ -61,9 +62,9 @@ def call(direct_denovo, direct_handling, name, GQ_lim, DP_min, DP_max):
     subprocess.call(sub_cmd, shell=True)
 
 
-##################################################
-# What you run  ##################################
-##################################################
+################
+# What you run #
+################
 
 # Find the number of mutation per trios:
 for name in trio_dir:
