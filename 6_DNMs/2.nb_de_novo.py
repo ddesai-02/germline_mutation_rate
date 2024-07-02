@@ -61,7 +61,7 @@ def nb_dn(direct, direct_denovo, direct_handling, name, GQ_lim, DP_min, DP_max, 
     file.write('#!/bin/bash \n')
     file.write('#SBATCH --account={} \n'.format(account))
     file.write('#SBATCH --mem 10G \n')
-    file.write('#SBATCH -cpus-per-task=6 \n')
+    file.write('#SBATCH --cpus-per-task=6 \n')
     file.write('#SBATCH --time=10:00:00 \n')
     file.write('## Catenate the Rscript for samples and remaining part\n')
     file.write(cat_cmd)
