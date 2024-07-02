@@ -2,10 +2,9 @@
 """
 This script write the R script to find the number of de novo mutation:
 """
-##################################################
-# What you need ##################################
-##################################################
-
+#################
+# What you need #
+#################
 # Packages:
 import subprocess
 import os
@@ -60,9 +59,9 @@ def nb_dn(direct, direct_denovo, direct_handling, name, GQ_lim, DP_min, DP_max, 
     """Create a .sh files with the filter functions."""
     file = open('{}{}_nb_denovo.sh'.format(direct_denovo, name),'w')
     file.write('#!/bin/bash \n')
-    file.write('#SBATCH --partition normal,short \n')
+    file.write('#SBATCH --account={} \n'.format(account))
     file.write('#SBATCH --mem 10G \n')
-    file.write('#SBATCH -c 6 \n')
+    file.write('#SBATCH -cpus-per-task=6 \n')
     file.write('#SBATCH --time=10:00:00 \n')
     file.write('## Catenate the Rscript for samples and remaining part\n')
     file.write(cat_cmd)
@@ -76,12 +75,11 @@ def nb_dn(direct, direct_denovo, direct_handling, name, GQ_lim, DP_min, DP_max, 
     subprocess.call(sub_cmd, shell=True)
 
 
-##################################################
-# What you run  ##################################
-##################################################
+################
+# What you run #
+################
 
 # Find the number of mutation per trios:
 for name in trio_dir:
     nb_dn(direct=direct, direct_denovo=direct_denovo, direct_handling=direct_handling, name=name, GQ_lim=GQ_lim, DP_min=DP_min, DP_max=DP_max, AB_max=AB_max, AB_min=AB_min)
     print("Finding the number of mutation for trio {}".format(name))
-
