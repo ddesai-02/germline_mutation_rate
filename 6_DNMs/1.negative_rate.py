@@ -59,9 +59,9 @@ def fnr(direct, direct_handling, direct_denovo, name, GQ_lim, DP_min, DP_max, AB
     bcf2_cmd= "bcftools view -i 'MIN(FMT/DP)>={} & MIN(FMT/GQ)>={} & MAX(FMT/DP)<={}' {}neg_rate_1_{}.g.vcf >> {}neg_rate_2_{}.g.vcf".format(DP_min, GQ_lim, DP_max, direct_denovo, name, direct_denovo, name)
     """Convert to table"""
     vtt_cmd = "gatk --java-options \"-XX:ParallelGCThreads=16 -Xmx60g \" VariantsToTable "
-    vtt_cmd += "-V={}neg_rate_2_{}.g.vcf ".format(direct_denovo, name)
+    vtt_cmd += "-V {}neg_rate_2_{}.g.vcf ".format(direct_denovo, name)
     vtt_cmd += "-F CHROM -F POS -F TYPE -F REF -F ALT -F FILTER -GF GT -GF AD -GF DP -GF GQ -GF PL -GF SAC "
-    vtt_cmd += "-O={}output.table.fnr.{} ".format(direct_denovo, name)
+    vtt_cmd += "-O {}output.table.fnr.{} ".format(direct_denovo, name)
     vtt_cmd += "--show-filtered"
     """Run r script"""
     r_cmd = "Rscript {}false_neg_rate_{}.r \n".format(direct_denovo, name)
