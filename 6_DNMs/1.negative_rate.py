@@ -68,9 +68,9 @@ def fnr(direct, direct_handling, direct_denovo, name, GQ_lim, DP_min, DP_max, AB
     """Create a .sh files with the false negative rate functions."""
     file = open('{}{}_fnr.sh'.format(direct_denovo, name),'w')
     file.write('#!/bin/bash \n')
-    file.write('#SBATCH --partition express,normal,short \n')
+    file.write('#SBATCH --account={} \n'.format(account))
     file.write('#SBATCH --mem 64G \n')
-    file.write('#SBATCH -c 16 \n')
+    file.write('#SBATCH --cpus-per-task=16 \n')
     file.write('#SBATCH --time=00:50:00 \n')
     file.write('## BCF commands: \n')
     file.write(bcf1_cmd)
@@ -103,4 +103,3 @@ for name in trio_dir:
     DP_max_calc=int(round(eval(DP_max)))
     fnr(direct=direct, direct_denovo=direct_denovo, direct_handling=direct_handling, name=name, GQ_lim=GQ_lim, DP_min=DP_min_calc, DP_max=DP_max_calc, AB_max=AB_max, AB_min=AB_min)
     print("Finding the false negative rate for trio {}".format(name))
-
