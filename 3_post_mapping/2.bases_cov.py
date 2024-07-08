@@ -40,8 +40,8 @@ def ref_length(ref_dir, refGenome, directory):
 	# Index Reference
 	idx_cmd = "bowtie2-build {}{}.fa {}{}refgenome".format(ref_dir, refGenome, ref_dir, refGenome)
 	# Reference Length
-	len_cmd = "bowtie2-inspect -s {}refgenome | awk '{ FS = \"\\t\" } ; BEGIN{L=0}; {L=L+$3}; END{print L}'".format(ref_dir)
-	file = open('{}_ref_length.sh'.format(directory),'w')
+	len_cmd = "bowtie2-inspect -s {}refgenome | awk '{{ FS = \"\\t\" }} ; BEGIN{{L=0}}; {{L=L+$3}}; END{{print L}}'".format(ref_dir)
+	file = open('{}ref_length.sh'.format(directory),'w')
 	file.write('#!/bin/bash \n')
 	file.write('#SBATCH --account={} \n'.format(account))
 	file.write('#SBATCH --mem 8G \n')
