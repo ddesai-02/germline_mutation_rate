@@ -69,3 +69,18 @@ for name in bamfile_dir:
         print("\t Move the coverage log files")
     else:
         print("\t Coverage has probably NOT BEEN calculated")
+
+for name in name_dir:
+	if os.path.exists("{}/{}/breadths.txt".format(path, sp)):
+		mv_cov = "mv {}{}_bases_cov* {}breadth.log".format(bam_dir, name, bam_dir)
+		mv_breadth = "mv {}{}_breadth.out {}breadth.log".format(bam_dir, name, bam_dir)
+		subprocess.call(mv_cov, shell=True)
+		subprocess.call(mv_breadth, shell=True)
+
+if os.path.exists("{}/{}/breadths.txt".format(path, sp)):
+	mv_ref = "mv {}ref_length* {}breadth.log".format(bam_dir, bam_dir)
+	subprocess.call(mv_ref, shell=True)
+
+if os.path.exists("{}/{}/breadths.txt".format(path, sp)):
+	mv_breadths = "mv {}breadths_out.txt {}breadth.log".format(bam_dir, bam_dir)
+	subprocess.call(mv_breadths, shell=True)

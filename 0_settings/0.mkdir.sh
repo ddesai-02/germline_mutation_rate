@@ -12,6 +12,7 @@ mkdir $path/$sp/fastq_files/catenate
 mkdir $path/$sp/trimmed_seq
 
 mkdir $path/$sp/bam_files
+mkdir $path/$sp/bam_files/breadth.log
 mkdir $path/$sp/bam_files/coverage
 mkdir $path/$sp/bam_files/coverage/cov.log
 mkdir $path/$sp/bam_files/inter_bam
