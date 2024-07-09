@@ -70,7 +70,7 @@ for name in bamfile_dir:
     else:
         print("\t Coverage has probably NOT BEEN calculated")
 
-for name in name_dir:
+for name in bamfile_dir:
 	if os.path.exists("{}/{}/breadths.txt".format(path, sp)):
 		mv_cov = "mv {}{}_bases_cov* {}breadth.log".format(bam_dir, name, bam_dir)
 		mv_breadth = "mv {}{}_breadth.out {}breadth.log".format(bam_dir, name, bam_dir)
