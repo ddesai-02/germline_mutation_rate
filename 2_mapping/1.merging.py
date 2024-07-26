@@ -6,9 +6,9 @@ merged the lane from the same library,
 and add a group name to the merged mapped bamfile.
 
 """
-##################################################
-# What you need ##################################
-##################################################
+#################
+# What you need #
+#################
 # Packages:
 import subprocess
 import os
@@ -33,13 +33,13 @@ def merge_add(name, inputs, ID, output):
     mg_cmd = "samtools merge {}_sorted.merged.bam {}".format(name, inputs)
     """The Addgroup name function"""
     add_cmd = "gatk --java-options \"-XX:ParallelGCThreads=3 -Xmx50g\" AddOrReplaceReadGroups "
-    add_cmd += "-I= {}_sorted.merged.bam ".format(name)
-    add_cmd += "-O= {}_sorted.merged.addg.bam ".format(name)
-    add_cmd += "-RGID={} ".format(ID)
-    add_cmd += "-RGLB=lib1 "
-    add_cmd += "-RGPL=BGISEQ "
-    add_cmd += "-RGSM={} ".format(ID)
-    add_cmd += "-RGPU=unit1 "
+    add_cmd += "-I {}_sorted.merged.bam ".format(name)
+    add_cmd += "-O {}_sorted.merged.addg.bam ".format(name)
+    add_cmd += "-ID {} ".format(ID)
+    add_cmd += "-LB lib1 "
+    add_cmd += "-PL ILLUMINA "
+    add_cmd += "-SM {} ".format(ID)
+    add_cmd += "-PU unit1 "
     ##print(add_cmd)
     """Create a .sh files with the samtools merge and the add group name functions."""
     file = open('{}_merging_addname.sh'.format(output),'w')
@@ -64,13 +64,13 @@ def add_only(name, ID, output):
     ##print(mg_cmd)
     """The Addgroup name function"""
     add_cmd = "gatk --java-options \"-XX:ParallelGCThreads=3 -Xmx50g\" AddOrReplaceReadGroups "
-    add_cmd += "-I= {}_sorted.merged.bam ".format(name)
-    add_cmd += "-O= {}_sorted.merged.addg.bam ".format(name)
-    add_cmd += "-RGID={} ".format(ID)
-    add_cmd += "-RGLB=lib1 "
-    add_cmd += "-RGPL=BGISEQ "
-    add_cmd += "-RGSM={} ".format(ID)
-    add_cmd += "-RGPU=unit1 "
+    add_cmd += "-I {}_sorted.merged.bam ".format(name)
+    add_cmd += "-O {}_sorted.merged.addg.bam ".format(name)
+    add_cmd += "-ID {} ".format(ID)
+    add_cmd += "-LB lib1 "
+    add_cmd += "-PL ILLUMINA "
+    add_cmd += "-SM {} ".format(ID)
+    add_cmd += "-PU unit1 "
     ##print(add_cmd)
     """Create a .sh files with the samtools merge and the add group name functions."""
     file = open('{}_merging_addname.sh'.format(output),'w')
@@ -111,9 +111,9 @@ def map_sum(name, direct, output):
     subprocess.call(sub_cmd, shell=True)
 
 
-##################################################
-# What you run  ##################################
-##################################################
+################
+# What you run #
+################
 
 # Merged all the lane for one sample
 
@@ -147,4 +147,3 @@ for name in bamfile_dir:
                     map_sum(name=l, direct=directory, output=output)
             else:
                 print("Oooh NoOoOo at least some directories for {} doesn't exist so {} can't be merged".format(name,name))
-
