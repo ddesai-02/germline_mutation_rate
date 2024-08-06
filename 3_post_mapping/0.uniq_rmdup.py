@@ -35,13 +35,13 @@ def uniq_rmdup(input_bam, output_u, output_d, direct, sp):
     uniq_cmd += "samtools view -b > {}".format(output_u)
     """The remove duplicate function"""
     rmdup_cmd = "gatk --java-options \"-XX:ParallelGCThreads=16 -Xmx100g -Djava.io.tmpdir={}\" MarkDuplicates ".format(scratch_dir)
-    rmdup_cmd += "-I= {} ".format(output_u)
-    rmdup_cmd += "-OUTPUT= {} ".format(output_d)
-    rmdup_cmd += "-REMOVE_DUPLICATES=true "
-    rmdup_cmd += "-METRICS_FILE=metrics.txt "
-    rmdup_cmd += "-MAX_FILE_HANDLES=800 "
-    rmdup_cmd += "--tmp-dir {} ".format(scratch_dir)
-    rmdup_cmd += "-READ_NAME_REGEX=null"
+    rmdup_cmd += "-I {} ".format(output_u)
+    rmdup_cmd += "-O {} ".format(output_d)
+    rmdup_cmd += "-REMOVE_DUPLICATES true "
+    rmdup_cmd += "-M metrics.txt "
+    rmdup_cmd += "-MAX_FILE_HANDLES 800 "
+    rmdup_cmd += "--TMP-DIR {} ".format(scratch_dir)
+    rmdup_cmd += "--READ_NAME_REGEX null"
     """The samtools index function."""
     index_cmd = "samtools index {}".format(output_d)
     """Create a .sh files with the keep uniq and remove duplicates functions."""
