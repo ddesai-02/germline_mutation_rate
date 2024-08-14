@@ -47,10 +47,10 @@ def call_var(ref, in_bam, out_vcf, scaff_old, out_dir):
     """Create a .sh files with the calling variant functions."""
     file = open('{}_call_res_g_{}.sh'.format(out_dir, scaff_old),'w')
     file.write('#!/bin/bash \n')
-    file.write('#SBATCH --account{}} \n'.format(account))
-    file.write('#SBATCH --mem 16G \n')
+    file.write('#SBATCH --account={} \n'.format(account))
+    file.write('#SBATCH --mem 15G \n')
     file.write('#SBATCH --cpus-per-task=1 \n')
-    file.write('#SBATCH --time=23:00:00 \n')
+    file.write('#SBATCH --time=23:59:00 \n')
     file.write(call_cmd)
     file.write('\n')
     file.close()
@@ -79,4 +79,3 @@ for name in bamfile_dir: # for each individual
             call_var(ref=ref_dir, in_bam=bamfile_dir[name], out_vcf="{}{}_{}_res.g.vcf".format(vcf_dir, name, scaff_old), scaff_old=scaff_old, out_dir="{}{}".format(vcf_dir, name))
             vcf_files_dir.write(current + "_res.g.vcf \n")
 vcf_files_dir.close()
-
