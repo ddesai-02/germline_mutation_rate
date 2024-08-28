@@ -15,6 +15,7 @@ import pandas as pd
 # Directories:
 direct = "{}/{}/vcf_files/".format(path, sp)
 scaff_dir = "{}/{}/".format(path, sp)
+scratch_dir = "/home/devan/scratch/"
 
 
 # Dictionary made of tuples of sample name and merged bamfile:
