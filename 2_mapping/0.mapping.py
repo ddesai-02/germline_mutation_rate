@@ -27,13 +27,10 @@ for line in f:
         name2fastq_pairs[name] = []
     name2fastq_pairs[name].append((fq1, fq2))
 
-# The insert size of each lane:
-ins_size = pd.read_csv('2.eva/res_ins_fin.txt', sep=' ', index_col=0)
-
 # The function:
-def submit_bwa_map(insert_size, ref_genome, read_1, read_2, output):
+def submit_bwa_map(ref_genome, read_1, read_2, output):
     """The `bwa mem` function."""
-    map_cmd = "bwa mem -t 24 -I {} {} {} {}".format(insert_size, ref_genome, read_1, read_2)
+    map_cmd = "bwa mem -t 24 {} {} {}".format(ref_genome, read_1, read_2)
     map_cmd += " | samtools sort -m 5G -@24 -O bam -T {} -o {}.bam".format(output, output)
     """Create a .sh files with the `bwa mem` function."""
     file = open('{}.sh'.format(output),'w')
@@ -41,7 +38,7 @@ def submit_bwa_map(insert_size, ref_genome, read_1, read_2, output):
     file.write('#SBATCH --account={} \n'.format(account))
     file.write('#SBATCH --mem 256G \n')
     file.write('#SBATCH -cpus-per-task=24 \n')
-    file.write('#SBATCH --time=12:00:00 \n')
+    file.write('#SBATCH --time=11:59:00 \n')
     file.write(map_cmd)
     file.write('\n')
     file.close()
@@ -63,17 +60,13 @@ for name in name2fastq_pairs:
         read_1, read_2 = name2fastq_pairs[name][i]
         seq = os.path.basename(read_1)[:-19]
         ##
-        ins_mean=round(ins_size.loc[seq]['MEAN'], 2)
-        ins_sd=round(ins_size.loc[seq]['SD'], 2)
-        ins_max=int(round(ins_size.loc[seq]['MAX']))
-        ins_min=int(round(ins_size.loc[seq]['MIN']))
         bamfile_dir = "{}/{}/bam_files/{}_{}.sorted".format(path, sp, name, i)
         if os.path.exists(bamfile_dir + '.bam'):
             print("Mapping not sent because " + bamfile_dir + ".bam exist already")
         else:
             print(seq + " --> " + bamfile_dir + '.bam')
             all_lane.append(seq)
-            submit_bwa_map(insert_size='{},{},{},{}'.format(ins_mean, ins_sd, ins_max, ins_min),ref_genome='{}/{}'.format(refDir, refGenome), read_1=read_1, read_2=read_2, output=bamfile_dir)
+            submit_bwa_map(ref_genome='{}/{}'.format(refDir, refGenome), read_1=read_1, read_2=read_2, output=bamfile_dir)
         bam_dir.append(bamfile_dir + '.bam')
     bam_dir = ' '.join(bam_dir)
     bam_files_directories.write(bam_dir + "\n")
