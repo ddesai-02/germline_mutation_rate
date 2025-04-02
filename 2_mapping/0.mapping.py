@@ -37,7 +37,7 @@ def submit_bwa_map(ref_genome, read_1, read_2, output):
     file.write('#!/bin/bash \n')
     file.write('#SBATCH --account={} \n'.format(account))
     file.write('#SBATCH --mem 256G \n')
-    file.write('#SBATCH -cpus-per-task=24 \n')
+    file.write('#SBATCH --cpus-per-task=24 \n')
     file.write('#SBATCH --time=11:59:00 \n')
     file.write(map_cmd)
     file.write('\n')
