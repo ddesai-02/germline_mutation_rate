@@ -40,7 +40,7 @@ def uniq_rmdup(input_bam, output_u, output_d, direct, sp):
     rmdup_cmd += "-REMOVE_DUPLICATES true "
     rmdup_cmd += "-M metrics.txt "
     rmdup_cmd += "-MAX_FILE_HANDLES 800 "
-    rmdup_cmd += "--TMP-DIR {} ".format(scratch_dir)
+    rmdup_cmd += "--TMP_DIR {} ".format(scratch_dir)
     rmdup_cmd += "--READ_NAME_REGEX null"
     """The samtools index function."""
     index_cmd = "samtools index {}".format(output_d)
@@ -49,8 +49,8 @@ def uniq_rmdup(input_bam, output_u, output_d, direct, sp):
     file.write('#!/bin/bash \n')
     file.write('#SBATCH --account={} \n'.format(account))
     file.write('#SBATCH --mem 128G \n')
-    file.write('#SBATCH --cpus-per-task=16 \n')
-    file.write('#SBATCH --time=30:00:00 \n')
+    file.write('#SBATCH --cpus-per-task=8 \n')
+    file.write('#SBATCH --time=11:59:00 \n')
     file.write(uniq_cmd)
     file.write('\n')
     file.write('echo \" Keeping unique IS DONE ##########################################################\" \n')
