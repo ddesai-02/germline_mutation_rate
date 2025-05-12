@@ -54,7 +54,7 @@ def combine(scaffold, direct):
     file.write('#SBATCH --account={} \n'.format(account))
     file.write('#SBATCH --mem 110G \n')
     file.write('#SBATCH --cpus-per-task=1 \n')
-    file.write('#SBATCH --time=10:00:00 \n') ## Large scaffolds may need slightly longer > 75000000 bp
+    file.write('#SBATCH --time=23:59:00 \n') ## Large scaffolds may need slightly longer > 75000000 bp
 ##    file.write('#SBATCH --time=250:00:00 \n')
     file.write(combine_cmd)
     file.write('\n')
