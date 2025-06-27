@@ -36,7 +36,7 @@ for line in f:
 def phase_trio(ref, off, fa, mo, direct, output_trio):
     """Select a trio"""
     phase_cmd = "whatshap phase "
-    phase_cmd += "--ped trio_{}.ped ".format(name)
+    phase_cmd += "--ped {}trio_{}.ped ".format(recomb, name)
     phase_cmd += "--reference {} ".format(ref)
     phase_cmd += "--output {}trio_{}_phased.vcf.gz ".format(recomb, name)
     phase_cmd += "{}trio_{}_final_filtered_noMV.vcf.gz ".format(recomb, name)
