@@ -49,7 +49,7 @@ def merge_add(name, inputs, ID, output):
     file.write('#SBATCH --cpus-per-task=3 \n')
     file.write('#SBATCH --time=2:59:00 \n')
     file.write('\n')
-    file.write('module load gatk \n')
+    file.write('module load gatk samtools \n')
     file.write('\n')
     file.write(mg_cmd)
     file.write('\n')
