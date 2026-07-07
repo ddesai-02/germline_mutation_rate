@@ -39,6 +39,8 @@ def submit_bwa_map(ref_genome, read_1, read_2, output):
     file.write('#SBATCH --mem 256G \n')
     file.write('#SBATCH --cpus-per-task=24 \n')
     file.write('#SBATCH --time=11:59:00 \n')
+    file.write('module load bwa samtools\n')
+    file.write('\n')
     file.write(map_cmd)
     file.write('\n')
     file.close()
