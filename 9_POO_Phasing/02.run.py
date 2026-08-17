@@ -17,7 +17,7 @@ from variable import * # Import your variables.py (sp, path, refGenome)
 direct_phasing = "{}/{}/phasing/".format(path, sp) # Directory where prerequisite files are located
 direct_bam_files = "{}/{}/bam_files/".format(path, sp) # Directory containing BAM files
 ref_fasta_dir = "{}/{}/ref_fasta/".format(path, sp) # Directory for FASTA
-assign_parent_script_path = os.path.join(path, sp, "phasing", "assign_parent_of_origin.py") # Path to the phasing script itself
+assign_parent_script_path = "./assign_parent_of_origin.py" # Path to the phasing script itself
 direct = "{}/{}/".format(path, sp) # Base project directory (from variable.py context)
 
 # --- Parameters for phasing (ensure consistency with prepare_phasing_prerequisites.py) ---
